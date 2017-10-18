@@ -2,5 +2,11 @@
 <resources>
     <string name="app_name">AndroidLab_1</string>
     <string name="hello_message">Здравствуйте!</string>
+    <string name="login_message">авторизоваться</string>
+    <string name="password_message">пароль</string>
     <string name="ButtonText">I\’m a button</string>
+    <string name="dialog_message">Bыйти</string>
+    <string name="dialog_title">Оповещение</string>
+    <string name="Response">Мой ответ</string>
+    <string name="StartChat">Начать чат</string>
 </resources>

@@ -10,10 +10,17 @@
     tools:context="com.example.esoukhanov.androidlab_1.ListItemsActivity">
     <RadioButton
         android:layout_columnWeight="1" android:gravity="fill"/>
+
     <CheckBox
-        android:layout_columnWeight="1" android:gravity="fill"/>
+        android:id="@+id/check_button"
+        android:layout_columnWeight="1"
+        android:gravity="fill" />
+
     <Switch
-        android:text="What does this do?" android:layout_columnWeight="1" android:gravity="fill"/>
+        android:id="@+id/switch_button"
+        android:layout_columnWeight="1"
+        android:gravity="fill"
+        android:text="What does this do?" />
     <ImageButton
         android:id="@+id/imageButton"
         android:src="@android:drawable/ic_menu_camera"

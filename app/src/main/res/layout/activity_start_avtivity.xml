@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.esoukhanov.androidlab_1.StartAvtivity">
-
+    tools:context="com.example.esoukhanov.androidlab_1.StartActivity">
+    <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,8 +22,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ButtonText"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="288dp" />
+        tools:ignore="MissingConstraints"/>
 
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button"
+            android:layout_marginTop="107dp"
+            android:layout_toEndOf="@+id/button"
+            android:text="@string/StartChat"
+            tools:ignore="MissingConstraints" />
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
