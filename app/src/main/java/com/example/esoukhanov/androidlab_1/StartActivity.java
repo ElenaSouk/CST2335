@@ -14,6 +14,7 @@ public class StartActivity extends Activity {
     protected static final String ACTIVITY_NAME = "StartActivity";
     Button I_Am_Button;
     Button StartChat;
+    Button weatherForecast;
     static final int REQUEST_IMAGE_CAPTURE = 10;  // The request code
 
     @Override
@@ -46,7 +47,16 @@ public class StartActivity extends Activity {
         //Intent intent = new Intent(StartActivity.this, ListItemsActivity.class);
         //Bundle bundleOptions = new Bundle();
        // startActivityForResult(intent, 10);// Activity is started with requestCode 10
-
+        // finding and assigning instance to weatherForecast button
+        weatherForecast = (Button) findViewById(R.id.button4);
+        weatherForecast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(ACTIVITY_NAME, "User clicked weatherForecast");
+                Intent intent = new Intent(StartActivity.this, WeatherForecast.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

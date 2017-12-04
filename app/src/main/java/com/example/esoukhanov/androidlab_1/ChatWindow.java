@@ -1,8 +1,12 @@
 package com.example.esoukhanov.androidlab_1;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +24,11 @@ public class ChatWindow extends Activity {
     private ListView lv;
     private EditText ed;
     private Button bt;
+    private String ACTIVITY_NAME = "ListItemsActivity";
     ChatAdapter messageAdapter;
     ArrayList<String> arrList_edit = new ArrayList<>();
+
+    private SQLiteDatabase db;  //a SQLiteDatabase object
 
     private class ChatAdapter extends ArrayAdapter<String>{
         //constructor for ChatAdapter that takes a Context parameter,
@@ -80,6 +87,50 @@ public class ChatWindow extends Activity {
                 ed.setText("");
             }
         });
-    }
-}
+
+        ChatDatabaseHelper Cdb = new ChatDatabaseHelper(this);
+
+        db = Cdb.getWritableDatabase(); //open it for both read and write
+        //executes a query for any existing chat messages
+        Cursor cursor = db.query(ChatDatabaseHelper.TABLE_NAME, new String[]
+                {ChatDatabaseHelper.KEY_MESSAGE},null,null,null,null,null,null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + cursor.getString( cursor.getColumnIndex( ChatDatabaseHelper.KEY_MESSAGE) ) );
+            //add message from query into the ArrayList of messages
+            arrList_edit.add(cursor.getString
+                    ( cursor.getColumnIndex( ChatDatabaseHelper.KEY_MESSAGE) ));
+            messageAdapter.notifyDataSetChanged();
+            cursor.moveToNext();
+        }
+
+        Log.i(ACTIVITY_NAME, "Cursor’s  column count = " + cursor.getColumnCount() );
+
+        for (int i = 0; i < cursor.getColumnCount(); i++) {
+            Log.i(ACTIVITY_NAME, "Column" + (i+1) + "; " + cursor.getColumnName(i));
+        }
+
+        bt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //get text from the EditText field and put into array list
+                String strTmp = ed.getText().toString();
+                arrList_edit.add(strTmp);
+                messageAdapter.notifyDataSetChanged();
+                ed.setText("");
+
+                //save message to database
+    ContentValues cValue = new ContentValues();
+                cValue.put(ChatDatabaseHelper.KEY_MESSAGE, strTmp);
+                        db.insert(ChatDatabaseHelper.TABLE_NAME, "NULL", cValue);
+                        }
+                        });
+
+                        }
+
+protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+        }
+        }
 
